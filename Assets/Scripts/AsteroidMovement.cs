@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AsteroidMovement : MonoBehaviour
 {
-    public float moveSpeed = 3f;
+    public float moveSpeed = 6f;
     public bool useScaleAnimation = false;
     public float scaleMin = 0.8f;
     public float scaleMax = 1.2f;
@@ -81,7 +81,7 @@ public class AsteroidMovement : MonoBehaviour
         }
 
         // Destroy if offscreen
-        if (transform.position.x < -10)
+        if (transform.position.x < -15)
         {
             Destroy(gameObject);
         }
