@@ -81,7 +81,7 @@ public class AsteroidMovement : MonoBehaviour
         }
 
         // Destroy if offscreen
-        if (transform.position.x < -10)
+        if (transform.position.x < -15)
         {
             Destroy(gameObject);
         }
