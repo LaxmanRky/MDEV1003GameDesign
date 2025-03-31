@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class UIManager : MonoBehaviour
     {
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
+
+        // Add click listener programmatically as backup
+        if (restartButton != null)
+            restartButton.onClick.AddListener(RestartGame);
     }
 
     void Update()
@@ -35,8 +40,10 @@ public class UIManager : MonoBehaviour
 
     public void RestartGame()
     {
-        // Add restart functionality here
-        UnityEngine.SceneManagement.SceneManager.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        Debug.Log("Restarting game..."); // Debug log to verify button click
+        
+        // Reload the current scene
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
     }
 }
