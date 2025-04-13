@@ -848,8 +848,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Game Over
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -873,8 +873,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -931,7 +931,7 @@ GameObject:
   m_Layer: 0
   m_Name: AsteroidSpawnPoint1
   m_TagString: Untagged
-  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -944,7 +944,7 @@ Transform:
   m_GameObject: {fileID: 746953789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.111904, y: 6.209973, z: 0.22898807}
+  m_LocalPosition: {x: 1.07, y: 6.12, z: 0.22898807}
   m_LocalScale: {x: 0.7808, y: 0.7808, z: 0.7808}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1088,7 +1088,7 @@ GameObject:
   m_Layer: 0
   m_Name: AsteroidSpawnPoint2
   m_TagString: Untagged
-  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1101,7 +1101,7 @@ Transform:
   m_GameObject: {fileID: 794040987}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.111904, y: -0.79002696, z: 0.22898807}
+  m_LocalPosition: {x: 1.0700006, y: -0.87999994, z: 0.22898807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1339,7 +1339,7 @@ GameObject:
   m_Layer: 0
   m_Name: AsteroidSpawnPoint3
   m_TagString: Untagged
-  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1352,7 +1352,7 @@ Transform:
   m_GameObject: {fileID: 1204462166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.111904, y: -7.790027, z: 0.22898807}
+  m_LocalPosition: {x: 1.0700006, y: -7.88, z: 0.22898807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1841,11 +1841,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6222883529912106486, guid: 5e8d576d63118a34b8acab674e12f5c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.3377
+      value: -2.97
       objectReference: {fileID: 0}
     - target: {fileID: 6222883529912106486, guid: 5e8d576d63118a34b8acab674e12f5c9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15391
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6222883529912106486, guid: 5e8d576d63118a34b8acab674e12f5c9, type: 3}
       propertyPath: m_LocalPosition.z
