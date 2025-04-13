@@ -21,6 +21,11 @@ public class SpaceshipController : MonoBehaviour
 
     void Start()
     {
+        // Load saved settings
+        gravity = PlayerPrefs.GetFloat("Gravity", gravity);
+        thrustPower = PlayerPrefs.GetFloat("ThrustPower", thrustPower);
+        maxThrust = thrustPower + 2f; // Adjust max thrust based on thrust power
+
         // Automatically add Rigidbody2D if missing
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
