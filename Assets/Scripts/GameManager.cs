@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -67,6 +68,18 @@ public class GameManager : MonoBehaviour
     }
 
     public static bool IsGameOver { get; set; }
+
+    public void GameOver()
+    {
+        IsGameOver = true;
+        Time.timeScale = 0f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public static void ResetGame()
     {
