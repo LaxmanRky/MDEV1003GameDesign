@@ -98,13 +98,21 @@ public class SettingsManager : MonoBehaviour
     public void ResetToDefaults()
     {
         if (speedSlider != null)
+        {
             speedSlider.value = DEFAULT_SPEED;
+            UpdateSpeedText(DEFAULT_SPEED);
+        }
         
         if (gravitySlider != null)
+        {
             gravitySlider.value = DEFAULT_GRAVITY;
+            UpdateGravityText(DEFAULT_GRAVITY);
+        }
         
         PlayerPrefs.SetFloat("ThrustPower", DEFAULT_SPEED);
         PlayerPrefs.SetFloat("Gravity", DEFAULT_GRAVITY);
         PlayerPrefs.Save();
+
+        Debug.Log("Settings reset to defaults"); // Debug log to verify the method is called
     }
 }
