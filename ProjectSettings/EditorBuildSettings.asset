@@ -15,6 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/SVGameScene.unity
     guid: 0929daede47ecd94eaf57b040236deb5
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 9c01e0a255f0cf74197b46aff1c76572, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 420a58a43ec696b438070e62e8daf787, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 6ad08cfc9b724bf4b8409a9f88741243, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
