@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SpaceVoyager;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Score tracking
+    private int currentScore = 0;
+    private int highScore = 0;
+    private float scoreTimer = 0f;
+    private float scoreIncreaseRate = 1f; // Increase score every second
+
+    // Properties to access scores
+    public int CurrentScore => currentScore;
+    public int HighScore => highScore;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -34,6 +45,9 @@ public class GameManager : MonoBehaviour
         
         // Ensure we have an audio listener
         SetupAudioListener();
+        
+        // Load high score from PlayerPrefs
+        LoadHighScore();
     }
 
     private void SetupAudioListener()
@@ -69,9 +83,64 @@ public class GameManager : MonoBehaviour
 
     public static bool IsGameOver { get; set; }
 
+    private void Update()
+    {
+        // Only update score if game is active
+        if (!IsGameOver && SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            // Increase score over time
+            scoreTimer += Time.deltaTime;
+            if (scoreTimer >= scoreIncreaseRate)
+            {
+                scoreTimer = 0f;
+                IncreaseScore(1);
+            }
+        }
+    }
+
+    // Method to increase the score
+    public void IncreaseScore(int amount)
+    {
+        currentScore += amount;
+        
+        // Update high score if needed
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            SaveHighScore();
+        }
+    }
+
+    // Reset the current score
+    public void ResetScore()
+    {
+        currentScore = 0;
+    }
+
+    // Save high score to PlayerPrefs
+    private void SaveHighScore()
+    {
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.Save();
+    }
+
+    // Load high score from PlayerPrefs
+    private void LoadHighScore()
+    {
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+    }
+
     public void GameOver()
     {
         IsGameOver = true;
+        
+        // Check if we have a new high score
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            SaveHighScore();
+        }
+        
         Time.timeScale = 0f;
         SceneManager.LoadScene("MainMenu");
     }
@@ -85,5 +154,14 @@ public class GameManager : MonoBehaviour
     {
         IsGameOver = false;
         Time.timeScale = 1f;
+        
+        // Reset score when starting a new game
+        if (Instance != null)
+        {
+            // Explicitly reset current score to 0
+            Instance.currentScore = 0;
+            Instance.scoreTimer = 0f;
+            Debug.Log("Score reset to 0");
+        }
     }
 }

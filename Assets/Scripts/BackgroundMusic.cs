@@ -14,6 +14,7 @@ public class BackgroundMusic : MonoBehaviour
 
     private AudioSource musicSource;
     private bool isFadingOut = false;
+    private bool isMusicMuted = false;
 
     private void Awake()
     {
@@ -27,6 +28,10 @@ public class BackgroundMusic : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
+        // Check if music should be muted
+        isMusicMuted = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
+        Debug.Log($"BackgroundMusic initialized. Music muted: {isMusicMuted}");
+
         // Set up audio source
         SetupAudioSource();
     }
@@ -37,14 +42,18 @@ public class BackgroundMusic : MonoBehaviour
         musicSource.clip = musicClip;
         musicSource.volume = volume;
         musicSource.loop = true;
-        musicSource.playOnAwake = true;
+        musicSource.playOnAwake = false; // Changed to false to control playback manually
         musicSource.priority = 128;
         musicSource.spatialBlend = 0f; // 2D sound
 
-        if (musicClip != null)
+        if (musicClip != null && !isMusicMuted)
         {
             musicSource.Play();
             Debug.Log("Started playing background music");
+        }
+        else if (isMusicMuted)
+        {
+            Debug.Log("Background music not started because it's muted in settings");
         }
         else
         {
@@ -58,6 +67,38 @@ public class BackgroundMusic : MonoBehaviour
         if (GameManager.IsGameOver && !isFadingOut)
         {
             StartFadeOut();
+        }
+        
+        // Check if music setting has changed
+        bool currentMuteSetting = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
+        if (currentMuteSetting != isMusicMuted)
+        {
+            isMusicMuted = currentMuteSetting;
+            ApplyMusicSettings();
+        }
+    }
+    
+    private void ApplyMusicSettings()
+    {
+        if (musicSource != null)
+        {
+            if (isMusicMuted)
+            {
+                if (musicSource.isPlaying)
+                {
+                    musicSource.Stop();
+                    Debug.Log("Stopped background music due to mute setting change");
+                }
+            }
+            else
+            {
+                if (!musicSource.isPlaying && !isFadingOut)
+                {
+                    musicSource.volume = volume;
+                    musicSource.Play();
+                    Debug.Log("Started background music due to unmute setting change");
+                }
+            }
         }
     }
 
@@ -90,7 +131,7 @@ public class BackgroundMusic : MonoBehaviour
 
     public void RestartMusic()
     {
-        if (musicSource != null)
+        if (musicSource != null && !isMusicMuted)
         {
             isFadingOut = false;
             musicSource.volume = volume;
@@ -100,7 +141,7 @@ public class BackgroundMusic : MonoBehaviour
 
     private void OnValidate()
     {
-        if (musicSource != null && !isFadingOut)
+        if (musicSource != null && !isFadingOut && !isMusicMuted)
         {
             musicSource.volume = volume;
         }

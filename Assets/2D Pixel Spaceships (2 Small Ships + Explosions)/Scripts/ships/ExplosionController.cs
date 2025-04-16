@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +17,9 @@ namespace SmallShips
         */
 
         Animator animator;
+        private bool hasExploded = false;
+        public bool keepAlive = false; // Add this to control whether to destroy the object
+
         // Use this for initialization
         void Start()
         {
@@ -33,9 +36,23 @@ namespace SmallShips
 
         public void StartExplosion()
         {
-            if (animator == null)
-                animator = GetComponent<Animator>();
-            animator.SetBool("expl", true);
+            if (!hasExploded)
+            {
+                hasExploded = true;
+                if (animator == null)
+                    animator = GetComponent<Animator>();
+
+                // Make sure we have a valid animator and animation
+                if (animator != null && animator.runtimeAnimatorController != null)
+                {
+                    animator.SetBool("expl", true);
+                    Debug.Log("Starting explosion animation");
+                }
+                else
+                {
+                    Debug.LogError("Animator or controller is missing!");
+                }
+            }
         }
 
         /// <summary>
@@ -43,7 +60,19 @@ namespace SmallShips
         /// </summary>
         public void DestroyObject()
         {
-            Destroy(gameObject);
+            if (!keepAlive)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                // If we want to keep the object, just stop the animation
+                if (animator != null)
+                {
+                    animator.speed = 0;
+                    Debug.Log("Explosion animation frozen at last frame");
+                }
+            }
         }
 
         /// <summary>
@@ -51,7 +80,10 @@ namespace SmallShips
         /// </summary>
         public void DestroyParentObject()
         {
-            Destroy(transform.parent.gameObject);
+            if (!keepAlive)
+            {
+                Destroy(transform.parent.gameObject);
+            }
         }
 
         public void ChildExplosion(int index)
@@ -66,16 +98,5 @@ namespace SmallShips
                 foreach (GameObject child in removeParts)
                     Destroy(child);
         }
-
-        /*
-        public void DestroyMainParent()
-        {
-            if (mainaParent != null)
-                Destroy(mainaParent);
-            else
-                Debug.Log("mainaParent not set for object name: " + name);
-        }
-        */
     }
-
 }

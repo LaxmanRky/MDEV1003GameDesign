@@ -11,17 +11,21 @@ public class SettingsManager : MonoBehaviour
     public TextMeshProUGUI gravityValueText;
 
     // Default values
-    private const float DEFAULT_SPEED = 7f;
-    private const float DEFAULT_GRAVITY = 2.5f;
+    private const float DEFAULT_SPEED = 12f;  // Changed from 7f to middle of new range
+    private const float DEFAULT_GRAVITY = 5f; // Changed from 2.5f to middle of new range
 
     // Value ranges
-    private const float MIN_SPEED = 5f;
-    private const float MAX_SPEED = 12f;
-    private const float MIN_GRAVITY = 1f;
-    private const float MAX_GRAVITY = 5f;
+    private const float MIN_SPEED = 10f;     // Changed from 5f to 10f
+    private const float MAX_SPEED = 15f;     // Changed from 12f to 15f
+    private const float MIN_GRAVITY = 3f;    // Changed from 1f to 3f
+    private const float MAX_GRAVITY = 7f;    // Changed from 5f to 7f
 
     void Start()
     {
+        // Clear existing PlayerPrefs to ensure new ranges take effect
+        PlayerPrefs.DeleteKey("ThrustPower");
+        PlayerPrefs.DeleteKey("Gravity");
+        
         LoadSettings();
         InitializeSliders();
     }

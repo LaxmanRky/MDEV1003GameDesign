@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using SmallShips;
 
 [RequireComponent(typeof(AudioSource))] // This ensures the AudioSource is always present
 public class ExplosionHandler : MonoBehaviour
@@ -17,6 +18,8 @@ public class ExplosionHandler : MonoBehaviour
     private bool isExploding = false;
     private bool gameStopRequested = false;
     private AudioSource audioSource;
+    private ExplosionController explosionController;
+    private Animator explosionAnimator;
 
     private void Awake()
     {
@@ -63,8 +66,29 @@ public class ExplosionHandler : MonoBehaviour
             Debug.Log("Playing explosion sound...");
         }
 
-        // Wait for explosion animation to complete
-        yield return new WaitForSecondsRealtime(explosionDuration);
+        // Find the explosion object
+        GameObject explosionObj = GameObject.Find("Explosion(Clone)");
+        if (explosionObj != null)
+        {
+            explosionController = explosionObj.GetComponent<ExplosionController>();
+            explosionAnimator = explosionObj.GetComponent<Animator>();
+            
+            if (explosionAnimator != null)
+            {
+                // Wait until the animation is done
+                while (explosionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                {
+                    yield return null;
+                }
+                
+                // Freeze the animation at the last frame
+                explosionAnimator.speed = 0;
+                Debug.Log("Animation complete, freezing at last frame");
+            }
+        }
+        
+        // Wait a moment to ensure everything is complete
+        yield return new WaitForSecondsRealtime(0.1f);
         
         Debug.Log("Explosion sequence complete!");
         isExploding = false;
@@ -78,6 +102,7 @@ public class ExplosionHandler : MonoBehaviour
         if (gameStopRequested)
         {
             gameStopRequested = false;
+            Debug.Log("Triggering explosion complete event");
             onExplosionComplete.Invoke();
         }
     }

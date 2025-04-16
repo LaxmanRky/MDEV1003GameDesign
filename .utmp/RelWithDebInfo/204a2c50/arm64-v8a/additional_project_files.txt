@@ -1,0 +1,1 @@
+C:\Users\acer\Documents\MDEV2025\Mobile Game Design\SpaceVoyagerHome\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\FramePacing\UnitySwappyWrapper.h
